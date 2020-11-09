@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScreenHome : Screen {
+public class ScreenView : Screen {
 
     Button btnTib, btnFem, btnPat, btnMeniscus;
     RectTransform topLeft;
@@ -16,10 +16,10 @@ public class ScreenHome : Screen {
     private void Awake() {
         topLeft = this.Get<RectTransform>("TopLeftFrame");
         
-        btnTib = topLeft.Get<Button>("btnTib");
-        btnFem = topLeft.Get<Button>("btnFem");
-        btnPat = topLeft.Get<Button>("btnPat");
-        btnMeniscus = topLeft.Get<Button>("btnMenis");
+        btnTib = topLeft.Get<Button>("VertLayout/btnTib");
+        btnFem = topLeft.Get<Button>("VertLayout/btnFem");
+        btnPat = topLeft.Get<Button>("VertLayout/btnPat");
+        btnMeniscus = topLeft.Get<Button>("VertLayout/btnMenis");
 
         btnTib.onClick.AddListener(() => { ToggleVisibility(eComponent.eTibia); });
         btnFem.onClick.AddListener(() => { ToggleVisibility(eComponent.eFemur); });
@@ -73,5 +73,11 @@ public class ScreenHome : Screen {
 
         btnDict[comp].Get<Image>().color = toBe;
         compDict[comp].SetActive(!compDict[comp].activeSelf);
+
+        if(comp == eComponent.eMeniscus) {
+            bool currentlyOn = this.Get<RectTransform>("Panes/Meniscus").gameObject.activeSelf;
+            this.Get<RectTransform>("Panes/Meniscus").gameObject.SetActive(!currentlyOn);
+            lr.widthMultiplier = currentlyOn ? 0f : 0.02f;
+        }
     }
 }

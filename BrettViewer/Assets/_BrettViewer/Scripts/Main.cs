@@ -39,7 +39,7 @@ public class Main : MonoBehaviour {
 
 		ManagerUI.GetScreenObject<ScreenOverlay>().GetComponent<ScreenOverlay>().OnLoad();
 
-		ManagerUI.GoTo<ScreenHome>();
+		ManagerUI.GoTo<ScreenView>();
 
 		ManagerUI.GetScreenObject<ScreenOverlay>().GetComponent<ScreenOverlay>().OnScreenEnter();
 

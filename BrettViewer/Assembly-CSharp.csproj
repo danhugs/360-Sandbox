@@ -72,8 +72,8 @@
     <Compile Include="Assets\_BrettViewer\Scripts\Manager\Manager.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Manager\ManagerUI.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Screen\Screen.cs" />
-    <Compile Include="Assets\_BrettViewer\Scripts\Screen\ScreenHome.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Screen\ScreenOverlay.cs" />
+    <Compile Include="Assets\_BrettViewer\Scripts\Screen\ScreenView.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Utilities\FrameCheck.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Utilities\FrameCheck1.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Utilities\FrameCheck2.cs" />
