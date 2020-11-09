@@ -36,7 +36,7 @@ public class CamOrbitControl : MonoBehaviour
 
     float lastTime = 0f;
     float threshold = 3f;
-    void LateUpdate() {
+    void Update() {
         
         bool mouseDown = Input.GetMouseButton(0);
 

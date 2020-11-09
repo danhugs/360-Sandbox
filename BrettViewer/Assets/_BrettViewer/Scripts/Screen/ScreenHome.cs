@@ -11,6 +11,7 @@ public class ScreenHome : Screen {
 
     Dictionary<eComponent, GameObject> compDict = new Dictionary<eComponent, GameObject>();
     Dictionary<eComponent, Button> btnDict = new Dictionary<eComponent, Button>();
+    LineRenderer lr;
 
     private void Awake() {
         topLeft = this.Get<RectTransform>("TopLeftFrame");
@@ -35,7 +36,32 @@ public class ScreenHome : Screen {
         btnDict.Add(eComponent.ePatella, btnPat);
         btnDict.Add(eComponent.eMeniscus, btnMeniscus);
 
+        lr = this.Add<LineRenderer>();
+        lr.positionCount = 2;
+        lr.widthMultiplier = 0.02f;
+        lr.material = Resources.Load<Material>("Line") as Material;
+    }
 
+    private void Update() {
+        UpdateInfoPanes();
+    }
+
+    private void UpdateInfoPanes() {
+        //Draw line between Pane x and objecty.
+        Transform t = compDict[eComponent.eMeniscus].transform.Find("tear");
+        RectTransform rt = this.Get<RectTransform>("Panes/Meniscus");
+        //Vector3[] worldCorners = new Vector3[4];
+        //rt.GetLocalCorners(worldCorners);
+        //lr.SetPosition(0, Camera.main.ScreenToWorldPoint(worldCorners[0]));
+
+        //lr.SetPosition(0, Camera.main.ScreenToWorldPoint(new Vector3(rt.anchoredPosition.x, rt.anchoredPosition.y, 0.2f)));
+
+        lr.SetPosition(0, Camera.main.ScreenToWorldPoint(new Vector3(rt.Find("ref").position.x, rt.Find("ref").position.y, 1f)));
+        lr.SetPosition(1, t.position);
+        
+
+        
+        
     }
 
     Color activeCol = UtilitiesColor.HexToColor("FFFFFF");
