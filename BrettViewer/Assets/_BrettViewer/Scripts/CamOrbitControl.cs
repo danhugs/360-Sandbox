@@ -34,19 +34,20 @@ public class CamOrbitControl : MonoBehaviour
         }
     }
 
-    float lastTime = 9999f;
+    float lastTime = 0f;
     float threshold = 3f;
     void LateUpdate() {
+        
         bool mouseDown = Input.GetMouseButton(0);
 
-        if (mouseDown) {
+        if (mouseDown && ManagerUI.IsOverUI == false) {
             lastTime = Time.time;
             x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
             y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
         } 
 
-        if(lastTime - Time.time > threshold) {
-            Debug.Log("hit");
+        //Orbiting
+        if(Time.time - lastTime > threshold) {
             x += distance * 0.02f;          
         }
 

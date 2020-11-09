@@ -11,6 +11,12 @@ public class ManagerUI : Manager {
 		GoTo(goToScreen.Get<Screen>());
 	}
 
+	public static bool IsOverUI {
+		get {
+			return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+		}
+	}
+
 	private static void GoTo(Screen goToScreen) {
 		foreach (KeyValuePair<System.Type, GameObject> pair in allScreens) {
 			if (pair.Key != typeof(ScreenOverlay)) {
