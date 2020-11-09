@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_BrettViewer\Scripts\CamOrbitControl.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Extensions\ExtensionsGameObject.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Extensions\ExtensionsUIBehaviour.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Extensions\UtilitiesColor.cs" />
