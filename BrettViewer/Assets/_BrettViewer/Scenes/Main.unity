@@ -1258,7 +1258,7 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.3
+    x: 0
     y: 0
     width: 1
     height: 1
@@ -1338,7 +1338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898998036}
   m_LocalRotation: {x: 0.000000004508207, y: 0.000000045596643, z: 0.99938834, w: -0.034971982}
-  m_LocalPosition: {x: -0.00007, y: 0.00163, z: 0.0152}
+  m_LocalPosition: {x: -0.004, y: 0.0014, z: 0.0152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1281427065}
