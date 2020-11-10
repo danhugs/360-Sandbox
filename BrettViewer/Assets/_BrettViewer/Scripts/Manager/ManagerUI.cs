@@ -21,6 +21,9 @@ public class ManagerUI : Manager {
 		foreach (KeyValuePair<System.Type, GameObject> pair in allScreens) {
 			if (pair.Key != typeof(ScreenOverlay)) {
 				pair.Value.SetActive(pair.Key == goToScreen.GetType());
+				if(pair.Key == goToScreen.GetType()) {
+					goToScreen.OnScreenEnter();
+                }
 			}
 		}
 

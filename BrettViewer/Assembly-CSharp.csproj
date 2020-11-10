@@ -70,9 +70,11 @@
     <Compile Include="Assets\_BrettViewer\Scripts\Extensions\UtilitiesColor.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Main.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Manager\Manager.cs" />
+    <Compile Include="Assets\_BrettViewer\Scripts\Manager\ManagerScene.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Manager\ManagerUI.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Screen\Screen.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Screen\ScreenOverlay.cs" />
+    <Compile Include="Assets\_BrettViewer\Scripts\Screen\ScreenPlan.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Screen\ScreenView.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Utilities\FrameCheck.cs" />
     <Compile Include="Assets\_BrettViewer\Scripts\Utilities\FrameCheck1.cs" />
@@ -293,6 +295,9 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.9f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>D:/git/Projects/360-Sandbox/BrettViewer/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.9f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -679,7 +684,12 @@
       <HintPath>D:/git/Projects/360-Sandbox/BrettViewer/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{B3AD6618-5FF6-80E3-71B8-9269E231057D}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

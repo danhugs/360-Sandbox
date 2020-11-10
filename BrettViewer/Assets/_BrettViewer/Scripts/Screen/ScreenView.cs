@@ -7,19 +7,19 @@ using UnityEngine.UI;
 public class ScreenView : Screen {
 
     Button btnTib, btnFem, btnPat, btnMeniscus;
-    RectTransform topLeft;
+    RectTransform vis;
 
     Dictionary<eComponent, GameObject> compDict = new Dictionary<eComponent, GameObject>();
     Dictionary<eComponent, Button> btnDict = new Dictionary<eComponent, Button>();
     LineRenderer lr;
 
     private void Awake() {
-        topLeft = this.Get<RectTransform>("TopLeftFrame");
+        vis = this.Get<RectTransform>("Vis");
         
-        btnTib = topLeft.Get<Button>("VertLayout/btnTib");
-        btnFem = topLeft.Get<Button>("VertLayout/btnFem");
-        btnPat = topLeft.Get<Button>("VertLayout/btnPat");
-        btnMeniscus = topLeft.Get<Button>("VertLayout/btnMenis");
+        btnTib = vis.Get<Button>("VertLayout/btnTib");
+        btnFem = vis.Get<Button>("VertLayout/btnFem");
+        btnPat = vis.Get<Button>("VertLayout/btnPat");
+        btnMeniscus = vis.Get<Button>("VertLayout/btnMenis");
 
         btnTib.onClick.AddListener(() => { ToggleVisibility(eComponent.eTibia); });
         btnFem.onClick.AddListener(() => { ToggleVisibility(eComponent.eFemur); });
@@ -42,11 +42,20 @@ public class ScreenView : Screen {
         lr.material = Resources.Load<Material>("Line") as Material;
     }
 
+    public override void OnScreenEnter() {
+        base.OnScreenEnter();
+        ManagerScene.PerspRig.SetActive(true);
+        ManagerScene.OrthoRig.SetActive(false);
+        //ManagerScene.MainCam.gameObject.SetActive(true);
+
+    }
+
     private void Update() {
         UpdateInfoPanes();
     }
 
     private void UpdateInfoPanes() {
+        
         //Draw line between Pane x and objecty.
         Transform t = compDict[eComponent.eMeniscus].transform.Find("tear");
         RectTransform rt = this.Get<RectTransform>("Panes/Meniscus");
