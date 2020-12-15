@@ -1,0 +1,59 @@
+﻿  ANN.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  bd_fix_rad_search.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  bd_pr_search.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  bd_search.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  bd_tree.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  brute.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  DanImplement.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\src\DanImplement.cpp(65,1): warning C4273: 'GetNN': inconsistent dll linkage
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(72,25): message : see previous definition of 'GetNN'
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\src\DanImplement.cpp(143,19): warning C4273: 'GetDists': inconsistent dll linkage
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(73,27): message : see previous definition of 'GetDists'
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\src\DanImplement.cpp(147,28): warning C4273: 'FreeMem': inconsistent dll linkage
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(74,24): message : see previous definition of 'FreeMem'
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\src\DanImplement.cpp(152,35): warning C4273: 'FreeMemFloat': inconsistent dll linkage
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(75,24): message : see previous definition of 'FreeMemFloat'
+  kd_dump.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  kd_fix_rad_search.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  kd_pr_search.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  kd_search.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  kd_split.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  kd_tree.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  kd_util.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  perf.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  rand.cpp
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(93,1): warning C4005: 'DLL_API': macro redefinition
+D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\include\ANN\ANN.h(66): message : see previous definition of 'DLL_API'
+  Generating Code...
+     Creating library D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\x64\Release\MondayClean.lib and object D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\x64\Release\MondayClean.exp
+  MondayClean.vcxproj -> D:\git\Projects\360-Sandbox\ANN_DRRMOD\ann_1.1.2\x64\Release\MondayClean.dll

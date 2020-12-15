@@ -49,7 +49,7 @@ using namespace std;					// make std:: accessible
 //	Parameters that are set in getArgs()
 //----------------------------------------------------------------------
 int				k = 1;			// number of nearest neighbors
-int				dim = 2;			// dimension
+int				dim = 3;			// dimension
 double			eps = 0;			// error bound
 int				maxPts = 1000000;			// maximum number of data points
 

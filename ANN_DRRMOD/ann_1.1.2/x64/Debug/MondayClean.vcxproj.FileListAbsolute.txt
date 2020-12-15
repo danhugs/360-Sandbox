@@ -1,0 +1,4 @@
+D:\_local\DllImplementationTest\ANN_MondayClean\ann_1.1.2\x64\Debug\MondayClean.dll
+D:\_local\DllImplementationTest\ANN_MondayClean\ann_1.1.2\x64\Debug\MondayClean.pdb
+D:\git\Projects\UnityKneeProject\ANN_MondayClean\ann_1.1.2\x64\Debug\MondayClean.dll
+D:\git\Projects\UnityKneeProject\ANN_MondayClean\ann_1.1.2\x64\Debug\MondayClean.pdb
