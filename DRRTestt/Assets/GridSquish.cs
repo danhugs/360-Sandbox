@@ -16,7 +16,7 @@ public class GridSquish : MonoBehaviour
 
 	void Start()
     {
-		tex = new Texture2D(100, 100);
+		tex = new Texture2D(300, 300);
 		femurGroup = GameObject.Find("FemurGroup");
 		
     }
@@ -47,6 +47,7 @@ public class GridSquish : MonoBehaviour
 					ScreenGridRow s = new ScreenGridRow();
 					s.MidPoint = midPoint;
 					s.Testpoints = new Vector3[10];
+					s.pixelIndex = ConvertCoordsToIndex(i, j);
 
 					//define test points?
 					for (int q = 0; q < 10; q++) {
@@ -180,6 +181,7 @@ public class GridSquish : MonoBehaviour
 		}
 
 		//8000 appears to be max val
+		///SCREEN GRID ROWS DON'T EXIST IF IT DOESN'T RAYCAST.  THEREFORE...?
 		foreach (ScreenGridRow s in screenGridRows) {
 			s.outputColour = Color.Lerp(Color.black, Color.white, (s.val / 8000));
 		}
@@ -190,9 +192,13 @@ public class GridSquish : MonoBehaviour
 
 	void SetPixelsOfTex() {
 		Color[] cols = tex.GetPixels();
+		for (int i = 0; i < cols.Length; i++) {
+			cols[i] = Color.black;
+		}
+	
 
 		for (int i = 0; i < screenGridRows.Count; i++) {
-			cols[i] = screenGridRows[i].outputColour;
+			cols[screenGridRows[i].pixelIndex] = screenGridRows[i].outputColour;
 		}
 
 		tex.SetPixels(cols);
@@ -203,8 +209,8 @@ public class GridSquish : MonoBehaviour
 	}
 
 
-	void ConvertCoordsToIndex(int x, int y, Texture2D tex) {
-		int indexOfPixel = y * tex.width + x;
+	int ConvertCoordsToIndex(int x, int y) {
+		return y * tex.width + x;
 	}
 
 
@@ -224,6 +230,7 @@ class ScreenGridRow {
 	public Vector3[] Testpoints;
 	public Color outputColour;
 	public float val = 0f;
+	internal int pixelIndex;
 }
 
 class MeshPointArray {
