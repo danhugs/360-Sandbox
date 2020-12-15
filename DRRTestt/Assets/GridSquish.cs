@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GridSquish : MonoBehaviour
 {
 
 	public MeshFilter _0, _250, _500, _750, _1000, _1250;
 	Texture2D tex;
+	public RawImage img;
+
 	GameObject femurGroup;
 
 	void Start()
@@ -152,14 +155,56 @@ public class GridSquish : MonoBehaviour
 		//need to cull irrelevant data - beyond a certain dist thresh.
 		for (int q = 0; q < neighbors.Length; q++) {
 			if (dists[q] < 0.25) {  //relevant data
-				//GameObject c = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				//c.transform.position = comparedPoints[neighbors[q]];
-				//c.transform.localScale = Vector3.one * 0.1f;
+									//GameObject c = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+									//c.transform.position = comparedPoints[neighbors[q]];
+									//c.transform.localScale = Vector3.one * 0.1f;
 
+				List<int> indexDensities = new List<int>();
+				foreach (KeyValuePair<int, MeshPointArray> pair in maxIndexForEachDensity) {
+					indexDensities.Add(pair.Key);
+				}
+				indexDensities.Sort();
+
+				int _density = 0;
+
+				foreach(int index in indexDensities) {
+					if(neighbors[q] <= index) {
+						_density = index;
+						break;
+					}
+				}
+
+				pointGridLU[originalPoints[q]].val += _density/1250f;
 
 			}
 		}
 
+		//8000 appears to be max val
+		foreach (ScreenGridRow s in screenGridRows) {
+			s.outputColour = Color.Lerp(Color.black, Color.white, (s.val / 8000));
+		}
+
+		SetPixelsOfTex();
+	}
+
+
+	void SetPixelsOfTex() {
+		Color[] cols = tex.GetPixels();
+
+		for (int i = 0; i < screenGridRows.Count; i++) {
+			cols[i] = screenGridRows[i].outputColour;
+		}
+
+		tex.SetPixels(cols);
+		tex.Apply();
+
+		img.texture = tex;
+
+	}
+
+
+	void ConvertCoordsToIndex(int x, int y, Texture2D tex) {
+		int indexOfPixel = y * tex.width + x;
 	}
 
 
@@ -169,12 +214,16 @@ public class GridSquish : MonoBehaviour
 	public void GetNNAndDist(Vector3[] originalPoints, Vector3[] comparedPoints) {
 		NearestNeighborInterface.GetNNsandDist(comparedPoints, originalPoints, out neighbors, out dists);
 	}
+
+
+
 }
 
 class ScreenGridRow {
 	public Vector3 MidPoint;
 	public Vector3[] Testpoints;
 	public Color outputColour;
+	public float val = 0f;
 }
 
 class MeshPointArray {
