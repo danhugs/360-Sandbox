@@ -54,13 +54,17 @@ public class GridSquish : MonoBehaviour
 
 		//Assign each point an associated row										
 		Dictionary<Vector3, ScreenGridRow> pointGridLU = new Dictionary<Vector3, ScreenGridRow>(); //can use vector3 to LU associated row
+		List<Vector3> gridPointList = new List<Vector3>();
+		
 		foreach(ScreenGridRow s in ScreenGridPoints) {
 			foreach(Vector3 v in s.Testpoints) {
 				pointGridLU.Add(v, s);
+				gridPointList.Add(v);
 			}
 		}
+		Vector3[] originalPoints = gridPointList.ToArray();
 
-		//Construct array of test points for NN.
+		//Construct array of test points for NN.  - each Vector3 has it's own ScreenGridRow
 		int i = 0;
 		Vector3[] points = new Vector3[pointGridLU.Count];
 		foreach(KeyValuePair<Vector3, ScreenGridRow> pair in pointGridLU) {
@@ -69,13 +73,81 @@ public class GridSquish : MonoBehaviour
 		}
 
 		//Construct array of originalMesh points
+		#region MeshPointArrays
+		MeshPointArray m0 = new MeshPointArray();
+		m0.Points = _0.mesh.vertices;
+		m0.Density = 0;
 
+		MeshPointArray m250 = new MeshPointArray();
+		m250.Points = _250.mesh.vertices;
+		m250.Density = 250;
 
+		MeshPointArray m500 = new MeshPointArray();
+		m500.Points = _500.mesh.vertices;
+		m500.Density = 500;
 
+		MeshPointArray m750 = new MeshPointArray();
+		m750.Points = _750.mesh.vertices;
+		m750.Density = 750;
 
+		MeshPointArray m1000 = new MeshPointArray();
+		m1000.Points = _1000.mesh.vertices;
+		m1000.Density = 1000;
+
+		MeshPointArray m1250 = new MeshPointArray();
+		m1250.Points = _1250.mesh.vertices;
+		m1250.Density = 1250;
+
+		List<MeshPointArray> allMeshList = new List<MeshPointArray>();
+		allMeshList.Add(m0);
+		allMeshList.Add(m250);
+		allMeshList.Add(m500);
+		allMeshList.Add(m750);
+		allMeshList.Add(m1000);
+		allMeshList.Add(m1250);
+
+		#endregion
+		MeshPointArray[] allMeshes = allMeshList.ToArray();
+
+		int pointsLength = (m0.Points.Count() + m250.Points.Count() + m500.Points.Count() + m750.Points.Count() + m1000.Points.Count() + m1250.Points.Count());
+		Vector3[] comparedPoints = new Vector3[pointsLength];
+		Dictionary<int, MeshPointArray> maxIndexForEachDensity = new Dictionary<int, MeshPointArray>(); //can use vector3 to LU associated row
+
+		//assign the originalmesh point master array, record index of what density it belongs to.  
+		int k = 0;
+		foreach (MeshPointArray m in allMeshes) {
+			foreach(Vector3 p in m.Points) {
+				comparedPoints[k] = p;
+				if(p == m.Points[m.Points.Length - 1]){
+					maxIndexForEachDensity.Add(k, m);
+				}
+				k++;
+			}
+		}
+
+		//Debug.Log(originalPoints.Length);
+		//Debug.Log(comparedPoints.Length);
+
+		GetNNAndDist(originalPoints, comparedPoints);
 
 	}
 
+
+	int[] neighbors;
+	float[] dists2D;
+	public void GetNNAndDist(Vector3[] originalPoints, Vector3[] comparedPoints) {
+
+		float threshhold = 10f;
+		NearestNeighborInterface.GetNNsandDist(originalPoints, comparedPoints, neighbors, dists2D);
+
+		for (int i = 0; i < originalPoints.Length; i++) {
+			if (dists2D[i] < threshhold) {  
+
+			}
+
+		}
+
+	}
 }
 
 class ScreenGridRow {

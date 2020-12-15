@@ -23,7 +23,7 @@ public static class NearestNeighborInterface {
 #else
     [DllImport("ANN", EntryPoint = "GetNN")]
 #endif
-    private static extern IntPtr GetNeighborArray(/*float[,]*/float[] comparedPoints, int comparedCount, /*float[,]*/float[] originalPoints, int originalCount, double errorBound);
+    private static extern IntPtr GetNeighborArray(float[] comparedPoints, int comparedCount, float[] originalPoints, int originalCount, double errorBound);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -63,37 +63,26 @@ public static class NearestNeighborInterface {
     /// <param name="returnedNNs"></param>
     /// <param name="returnedDists"></param>
     public static void GetNNsandDist(Vector3[] meshPointsCompared, Vector3[] meshPointsOriginal, int[] returnedNNs, float[] returnedDists) {
-        ////Compared Mesh points
-        //float[,] pointsCompared = new float[meshPointsCompared.Length, 2];
-        //for (int i = 0; i < meshPointsCompared.Length; i++) {
-        //    pointsCompared[i, 0] = meshPointsCompared[i].x;
-        //    pointsCompared[i, 1] = meshPointsCompared[i].y;
-        //}
-
-        ////original mesh points
-        //float[,] pointsOrig = new float[meshPointsOriginal.Length, 2];
-        //for (int i = 0; i < meshPointsOriginal.Length; i++) {
-        //    pointsOrig[i, 0] = meshPointsOriginal[i].x;
-        //    pointsOrig[i, 1] = meshPointsOriginal[i].y;
-
-        // }
 
         //Compared Mesh points
-        if ((pointsCompared == null) || (pointsCompared.Length < meshPointsCompared.Length * 2)) {
-            pointsCompared = new float[meshPointsCompared.Length * 2];
+        if ((pointsCompared == null) || (pointsCompared.Length < meshPointsCompared.Length * 3)) {
+            pointsCompared = new float[meshPointsCompared.Length * 3];
         }
+
         for (int i = 0; i < meshPointsCompared.Length; i++) {
-            pointsCompared[2 * i] = meshPointsCompared[i].x;
-            pointsCompared[2 * i + 1] = meshPointsCompared[i].y;
+            pointsCompared[3 * i] = meshPointsCompared[i].x;
+            pointsCompared[3 * i + 1] = meshPointsCompared[i].y;
+            pointsCompared[3 * i + 2] = meshPointsCompared[i].z;
         }
 
         //original mesh points
-        if ((pointsOrig == null) || (pointsOrig.Length < meshPointsOriginal.Length * 2)) {
-            pointsOrig = new float[meshPointsOriginal.Length * 2];
+        if ((pointsOrig == null) || (pointsOrig.Length < meshPointsOriginal.Length * 3)) {
+            pointsOrig = new float[meshPointsOriginal.Length * 3];
         }
         for (int i = 0; i < meshPointsOriginal.Length; i++) {
-            pointsOrig[2 * i] = meshPointsOriginal[i].x;
-            pointsOrig[2 * i + 1] = meshPointsOriginal[i].y;
+            pointsOrig[3 * i] = meshPointsOriginal[i].x;
+            pointsOrig[3 * i + 1] = meshPointsOriginal[i].y;
+            pointsOrig[3 * i + 2] = meshPointsOriginal[i].z;
         }
 
         double errorBound = 1000000;
