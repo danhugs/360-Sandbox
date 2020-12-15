@@ -58,7 +58,7 @@ public static class NearestNeighborInterface {
             pointsOrig[i, 2] = meshPointsOriginal[i].z;
         }
 
-        double errorBound = 0.1;
+        double errorBound = 0.01;
 
         IntPtr returnedIntPtr = GetNeighborArray(pointsCompared, meshPointsCompared.Length, pointsOrig, meshPointsOriginal.Length, errorBound);
         returnedNNs = new int[meshPointsOriginal.Length];
