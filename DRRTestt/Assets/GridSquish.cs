@@ -16,13 +16,21 @@ public class GridSquish : MonoBehaviour
 		tex = new Texture2D(100, 100);
 		femurGroup = GameObject.Find("FemurGroup");
 		
-		DefineScreenGrid();
     }
 
+	private void Update() {
+		//Reset();
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			DefineScreenGrid();
+		}
+		
+	}
 
 	List<ScreenGridRow> ScreenGridPoints = new List<ScreenGridRow>();
 	private void DefineScreenGrid() {
-			
+
+		ScreenGridPoints.Clear();
+
 		float x = tex.width;
 		float y = tex.height;
 		for (int i = 1; i < x + 1; i++) {
@@ -125,10 +133,10 @@ public class GridSquish : MonoBehaviour
 			}
 		}
 
-		//Debug.Log(originalPoints.Length);
-		//Debug.Log(comparedPoints.Length);
+		Debug.Log(originalPoints.Length);
+		Debug.Log(comparedPoints.Length);
 
-		GetNNAndDist(originalPoints, comparedPoints);
+		//GetNNAndDist(originalPoints, comparedPoints);
 
 	}
 
@@ -136,14 +144,19 @@ public class GridSquish : MonoBehaviour
 	int[] neighbors;
 	float[] dists2D;
 	public void GetNNAndDist(Vector3[] originalPoints, Vector3[] comparedPoints) {
+		neighbors = new int[originalPoints.Length];
+		dists2D = new float[originalPoints.Length];
+		for (int i = 0; i < neighbors.Length; i++) {
+			neighbors[i] = 4;
+		}
 
-		float threshhold = 10f;
+		//dists2D = new float[originalPoints.Length];
+
+		//float threshhold = 10f;
 		NearestNeighborInterface.GetNNsandDist(originalPoints, comparedPoints, neighbors, dists2D);
 
-		for (int i = 0; i < originalPoints.Length; i++) {
-			if (dists2D[i] < threshhold) {  
-
-			}
+		for (int i = 0; i < 100; i++) {
+			Debug.Log(neighbors[i]);
 
 		}
 

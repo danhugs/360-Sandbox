@@ -69,35 +69,42 @@ public static class NearestNeighborInterface {
             pointsCompared = new float[meshPointsCompared.Length * 3];
         }
 
+        //Debug.Log("pt" + pointsCompared.Length);
+
         for (int i = 0; i < meshPointsCompared.Length; i++) {
             pointsCompared[3 * i] = meshPointsCompared[i].x;
             pointsCompared[3 * i + 1] = meshPointsCompared[i].y;
             pointsCompared[3 * i + 2] = meshPointsCompared[i].z;
         }
 
+
+
         //original mesh points
         if ((pointsOrig == null) || (pointsOrig.Length < meshPointsOriginal.Length * 3)) {
             pointsOrig = new float[meshPointsOriginal.Length * 3];
         }
+
+        //Debug.Log("mptorc" + meshPointsOriginal.Length);
+
         for (int i = 0; i < meshPointsOriginal.Length; i++) {
             pointsOrig[3 * i] = meshPointsOriginal[i].x;
             pointsOrig[3 * i + 1] = meshPointsOriginal[i].y;
             pointsOrig[3 * i + 2] = meshPointsOriginal[i].z;
         }
 
-        double errorBound = 1000000;
+        double errorBound = 100000;
 
         IntPtr returnedIntPtr = GetNeighborArray(pointsCompared, meshPointsCompared.Length, pointsOrig, meshPointsOriginal.Length, errorBound);
-        ///returnedNNs = new int[meshPointsOriginal.Length];
+        returnedNNs = new int[meshPointsOriginal.Length];
         Marshal.Copy(returnedIntPtr, returnedNNs, 0, meshPointsOriginal.Length);
 
-        IntPtr returnedFloatPtr = GetDists();
-        ///returnedDists = new float[meshPointsOriginal.Length];
-        Marshal.Copy(returnedFloatPtr, returnedDists, 0, meshPointsOriginal.Length);
+		IntPtr returnedFloatPtr = GetDists();
+		returnedDists = new float[meshPointsOriginal.Length];
+		Marshal.Copy(returnedFloatPtr, returnedDists, 0, meshPointsOriginal.Length);
 
-        //FreeMem(returnedIntPtr);
-        //FreeMemFloat(returnedFloatPtr);
-    }
+		FreeMem(returnedIntPtr);
+		FreeMemFloat(returnedFloatPtr);
+	}
 }
 
 
