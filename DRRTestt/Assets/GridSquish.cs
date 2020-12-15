@@ -26,10 +26,10 @@ public class GridSquish : MonoBehaviour
 		
 	}
 
-	List<ScreenGridRow> ScreenGridPoints = new List<ScreenGridRow>();
+	List<ScreenGridRow> screenGridRows = new List<ScreenGridRow>();
 	private void DefineScreenGrid() {
 
-		ScreenGridPoints.Clear();
+		screenGridRows.Clear();
 
 		float x = tex.width;
 		float y = tex.height;
@@ -49,7 +49,7 @@ public class GridSquish : MonoBehaviour
 					for (int q = 0; q < 10; q++) {
 						s.Testpoints[q] = midPoint + new Vector3(0, 0, q + 1 * 10);
 					}
-					ScreenGridPoints.Add(s);
+					screenGridRows.Add(s);
 				}
 
 			}
@@ -64,7 +64,7 @@ public class GridSquish : MonoBehaviour
 		Dictionary<Vector3, ScreenGridRow> pointGridLU = new Dictionary<Vector3, ScreenGridRow>(); //can use vector3 to LU associated row
 		List<Vector3> gridPointList = new List<Vector3>();
 		
-		foreach(ScreenGridRow s in ScreenGridPoints) {
+		foreach(ScreenGridRow s in screenGridRows) {
 			foreach(Vector3 v in s.Testpoints) {
 				pointGridLU.Add(v, s);
 				gridPointList.Add(v);
@@ -85,26 +85,36 @@ public class GridSquish : MonoBehaviour
 		MeshPointArray m0 = new MeshPointArray();
 		m0.Points = _0.mesh.vertices;
 		m0.Density = 0;
+		m0.gameobj = _0.gameObject;
 
 		MeshPointArray m250 = new MeshPointArray();
 		m250.Points = _250.mesh.vertices;
 		m250.Density = 250;
+		m250.gameobj = _250.gameObject;
+
 
 		MeshPointArray m500 = new MeshPointArray();
 		m500.Points = _500.mesh.vertices;
 		m500.Density = 500;
+		m500.gameobj = _500.gameObject;
 
 		MeshPointArray m750 = new MeshPointArray();
 		m750.Points = _750.mesh.vertices;
 		m750.Density = 750;
+		m750.gameobj = _750.gameObject;
+
 
 		MeshPointArray m1000 = new MeshPointArray();
 		m1000.Points = _1000.mesh.vertices;
 		m1000.Density = 1000;
+		m1000.gameobj = _1000.gameObject;
+
 
 		MeshPointArray m1250 = new MeshPointArray();
 		m1250.Points = _1250.mesh.vertices;
 		m1250.Density = 1250;
+		m1250.gameobj = _1250.gameObject;
+
 
 		List<MeshPointArray> allMeshList = new List<MeshPointArray>();
 		allMeshList.Add(m0);
@@ -125,7 +135,7 @@ public class GridSquish : MonoBehaviour
 		int k = 0;
 		foreach (MeshPointArray m in allMeshes) {
 			foreach(Vector3 p in m.Points) {
-				comparedPoints[k] = p;
+				comparedPoints[k] = m.gameobj.transform.TransformPoint(p);
 				if(p == m.Points[m.Points.Length - 1]){
 					maxIndexForEachDensity.Add(k, m);
 				}
@@ -133,33 +143,31 @@ public class GridSquish : MonoBehaviour
 			}
 		}
 
-		Debug.Log(originalPoints.Length);
-		Debug.Log(comparedPoints.Length);
 
-		//GetNNAndDist(originalPoints, comparedPoints);
+		GetNNAndDist(originalPoints, comparedPoints);
+
+		//to get compared MeshPointArray.density, just need neighbor[q]
+		//To get the ScreenGridRow - use the Vector3 to lookup the object, increment the val
+
+		//need to cull irrelevant data - beyond a certain dist thresh.
+		for (int q = 0; q < neighbors.Length; q++) {
+			if (dists[q] < 0.25) {  //relevant data
+				//GameObject c = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+				//c.transform.position = comparedPoints[neighbors[q]];
+				//c.transform.localScale = Vector3.one * 0.1f;
+
+
+			}
+		}
 
 	}
 
 
+
 	int[] neighbors;
-	float[] dists2D;
+	float[] dists;
 	public void GetNNAndDist(Vector3[] originalPoints, Vector3[] comparedPoints) {
-		neighbors = new int[originalPoints.Length];
-		dists2D = new float[originalPoints.Length];
-		for (int i = 0; i < neighbors.Length; i++) {
-			neighbors[i] = 4;
-		}
-
-		//dists2D = new float[originalPoints.Length];
-
-		//float threshhold = 10f;
-		NearestNeighborInterface.GetNNsandDist(originalPoints, comparedPoints, neighbors, dists2D);
-
-		for (int i = 0; i < 100; i++) {
-			Debug.Log(neighbors[i]);
-
-		}
-
+		NearestNeighborInterface.GetNNsandDist(comparedPoints, originalPoints, out neighbors, out dists);
 	}
 }
 
@@ -170,6 +178,7 @@ class ScreenGridRow {
 }
 
 class MeshPointArray {
+	public GameObject gameobj;
 	public Vector3[] Points;
 	public int Density;
 }

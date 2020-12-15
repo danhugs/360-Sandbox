@@ -18,37 +18,15 @@ using System;
 
 public static class NearestNeighborInterface {
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal", EntryPoint = "GetNN")]
-#else
     [DllImport("ANN", EntryPoint = "GetNN")]
-#endif
-    private static extern IntPtr GetNeighborArray(float[] comparedPoints, int comparedCount, float[] originalPoints, int originalCount, double errorBound);
+    private static extern IntPtr GetNeighborArray(float[,] comparedPoints, int comparedCount, float[,] originalPoints, int originalCount, double errorBound);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal")]
-#else
     [DllImport("ANN", EntryPoint = "GetDists")]
-#endif
     private static extern IntPtr GetDists();
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal")]
-#else
     [DllImport("ANN", EntryPoint = "FreeMem")]
-#endif
     public static extern IntPtr FreeMem(IntPtr ptr);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-    [DllImport("__Internal")]
-#else
-    [DllImport("ANN", EntryPoint = "FreeMemFloat")]
-#endif
-    public static extern IntPtr FreeMemFloat(IntPtr ptr);
-
-    //keep these the largest possible
-    static float[] pointsCompared;
-    static float[] pointsOrig;
 
     /// <summary>
     /// This returns an array of Nearest Neighbor Indices, ordered by the original point indices. 
@@ -62,49 +40,38 @@ public static class NearestNeighborInterface {
     /// <param name="meshPointsOriginal"></param>
     /// <param name="returnedNNs"></param>
     /// <param name="returnedDists"></param>
-    public static void GetNNsandDist(Vector3[] meshPointsCompared, Vector3[] meshPointsOriginal, int[] returnedNNs, float[] returnedDists) {
+    public static void GetNNsandDist(Vector3[] meshPointsCompared, Vector3[] meshPointsOriginal, out int[] returnedNNs, out float[] returnedDists) {
 
         //Compared Mesh points
-        if ((pointsCompared == null) || (pointsCompared.Length < meshPointsCompared.Length * 3)) {
-            pointsCompared = new float[meshPointsCompared.Length * 3];
-        }
-
-        //Debug.Log("pt" + pointsCompared.Length);
-
+        float[,] pointsCompared = new float[meshPointsCompared.Length, 3];
         for (int i = 0; i < meshPointsCompared.Length; i++) {
-            pointsCompared[3 * i] = meshPointsCompared[i].x;
-            pointsCompared[3 * i + 1] = meshPointsCompared[i].y;
-            pointsCompared[3 * i + 2] = meshPointsCompared[i].z;
+            pointsCompared[i, 0] = meshPointsCompared[i].x;
+            pointsCompared[i, 1] = meshPointsCompared[i].y;
+            pointsCompared[i, 2] = meshPointsCompared[i].z;
         }
-
-
 
         //original mesh points
-        if ((pointsOrig == null) || (pointsOrig.Length < meshPointsOriginal.Length * 3)) {
-            pointsOrig = new float[meshPointsOriginal.Length * 3];
-        }
-
-        //Debug.Log("mptorc" + meshPointsOriginal.Length);
-
+        float[,] pointsOrig = new float[meshPointsOriginal.Length, 3];
         for (int i = 0; i < meshPointsOriginal.Length; i++) {
-            pointsOrig[3 * i] = meshPointsOriginal[i].x;
-            pointsOrig[3 * i + 1] = meshPointsOriginal[i].y;
-            pointsOrig[3 * i + 2] = meshPointsOriginal[i].z;
+            pointsOrig[i, 0] = meshPointsOriginal[i].x;
+            pointsOrig[i, 1] = meshPointsOriginal[i].y;
+            pointsOrig[i, 2] = meshPointsOriginal[i].z;
         }
 
-        double errorBound = 100000;
+        double errorBound = 0.1;
 
         IntPtr returnedIntPtr = GetNeighborArray(pointsCompared, meshPointsCompared.Length, pointsOrig, meshPointsOriginal.Length, errorBound);
         returnedNNs = new int[meshPointsOriginal.Length];
         Marshal.Copy(returnedIntPtr, returnedNNs, 0, meshPointsOriginal.Length);
 
-		IntPtr returnedFloatPtr = GetDists();
-		returnedDists = new float[meshPointsOriginal.Length];
-		Marshal.Copy(returnedFloatPtr, returnedDists, 0, meshPointsOriginal.Length);
+        IntPtr returnedFloatPtr = GetDists();
+        returnedDists = new float[meshPointsOriginal.Length];
+        Marshal.Copy(returnedFloatPtr, returnedDists, 0, meshPointsOriginal.Length);
 
-		FreeMem(returnedIntPtr);
-		FreeMemFloat(returnedFloatPtr);
-	}
+        FreeMem(returnedIntPtr);
+        FreeMem(returnedFloatPtr);
+
+    }
 }
 
 
