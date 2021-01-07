@@ -18,13 +18,25 @@ using System;
 
 public static class NearestNeighborInterface {
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal", EntryPoint = "GetNN")]
+#else
     [DllImport("ANN", EntryPoint = "GetNN")]
-    private static extern IntPtr GetNeighborArray(float[,] comparedPoints, int comparedCount, float[,] originalPoints, int originalCount, double errorBound);
+#endif
+    private static extern IntPtr GetNeighborArray(/*float[,]*/float[] comparedPoints, int comparedCount, /*float[,]*/float[] originalPoints, int originalCount, double errorBound);
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+#else
     [DllImport("ANN", EntryPoint = "GetDists")]
+#endif
     private static extern IntPtr GetDists();
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+#else
     [DllImport("ANN", EntryPoint = "FreeMem")]
+#endif
     public static extern IntPtr FreeMem(IntPtr ptr);
 
 
@@ -41,24 +53,38 @@ public static class NearestNeighborInterface {
     /// <param name="returnedNNs"></param>
     /// <param name="returnedDists"></param>
     public static void GetNNsandDist(Vector3[] meshPointsCompared, Vector3[] meshPointsOriginal, out int[] returnedNNs, out float[] returnedDists) {
+        ////Compared Mesh points
+        //float[,] pointsCompared = new float[meshPointsCompared.Length, 2];
+        //for (int i = 0; i < meshPointsCompared.Length; i++) {
+        //    pointsCompared[i, 0] = meshPointsCompared[i].x;
+        //    pointsCompared[i, 1] = meshPointsCompared[i].y;
+        //}
+
+        ////original mesh points
+        //float[,] pointsOrig = new float[meshPointsOriginal.Length, 2];
+        //for (int i = 0; i < meshPointsOriginal.Length; i++) {
+        //    pointsOrig[i, 0] = meshPointsOriginal[i].x;
+        //    pointsOrig[i, 1] = meshPointsOriginal[i].y;
+
+        // }
 
         //Compared Mesh points
-        float[,] pointsCompared = new float[meshPointsCompared.Length, 3];
+        float[] pointsCompared = new float[meshPointsCompared.Length * 3];
         for (int i = 0; i < meshPointsCompared.Length; i++) {
-            pointsCompared[i, 0] = meshPointsCompared[i].x;
-            pointsCompared[i, 1] = meshPointsCompared[i].y;
-            pointsCompared[i, 2] = meshPointsCompared[i].z;
+            pointsCompared[3 * i] = meshPointsCompared[i].x;
+            pointsCompared[3 * i + 1] = meshPointsCompared[i].y;
+            pointsCompared[3 * i + 2] = meshPointsCompared[i].z;
         }
 
         //original mesh points
-        float[,] pointsOrig = new float[meshPointsOriginal.Length, 3];
+        float[] pointsOrig = new float[meshPointsOriginal.Length * 3];
         for (int i = 0; i < meshPointsOriginal.Length; i++) {
-            pointsOrig[i, 0] = meshPointsOriginal[i].x;
-            pointsOrig[i, 1] = meshPointsOriginal[i].y;
-            pointsOrig[i, 2] = meshPointsOriginal[i].z;
+            pointsOrig[3 * i] = meshPointsOriginal[i].x;
+            pointsOrig[3 * i + 1] = meshPointsOriginal[i].y;
+            pointsOrig[3 * i + 2] = meshPointsOriginal[i].z;
         }
 
-        double errorBound = 0.01;
+        double errorBound = 1000000;
 
         IntPtr returnedIntPtr = GetNeighborArray(pointsCompared, meshPointsCompared.Length, pointsOrig, meshPointsOriginal.Length, errorBound);
         returnedNNs = new int[meshPointsOriginal.Length];
@@ -69,8 +95,7 @@ public static class NearestNeighborInterface {
         Marshal.Copy(returnedFloatPtr, returnedDists, 0, meshPointsOriginal.Length);
 
         FreeMem(returnedIntPtr);
-        FreeMem(returnedFloatPtr);
-
+        FreeMem(returnedFloatPtr);//TODO create another one
     }
 }
 

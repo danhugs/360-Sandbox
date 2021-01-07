@@ -49,52 +49,36 @@ using namespace std;					// make std:: accessible
 //	Parameters that are set in getArgs()
 //----------------------------------------------------------------------
 int				k = 1;			// number of nearest neighbors
-int				dim = 2;			// dimension
+int				dim = 3;			// dimension
 double			eps = 0;			// error bound
 int				maxPts = 1000000;			// maximum number of data points
+float*			outputNNDists;
 
-static ANNpointArray		dataPts = nullptr;
-static ANNpointArray		queryPts = nullptr;
-static int	nLastInputPts = 0;
-static int	nLastQueryPts = 0;
 
-static int* outputNNIndexes = nullptr;
-static float* outputNNDists = nullptr;
-
-extern "C" int* GetNN(float inputPoints[][2], int inputPointCount, float qPoints[][2], int qPointCount, double errorBound)
+extern "C" int* GetNN(float inputPoints[][3], int inputPointCount, float qPoints[][3], int qPointCount, double errorBound)
 {
 	int					nInputPts;
 	int					nQueryPts;
-	//ANNpointArray		dataPts;				
-	//ANNpointArray		queryPts;
-	ANNidxArray			nnIdx;
-	ANNdistArray		dists;
-	ANNkd_tree*			kdTree;
+	ANNpointArray		dataPts;				
+	ANNpointArray		queryPts;
+	ANNidxArray			nnIdx;					
+	ANNdistArray		dists;					
+	ANNkd_tree*			kdTree;						
+	int*				outputNNIndexes;
 
-	int dimension = 2;
+	
+	int dimension = 3;
 	nInputPts = inputPointCount;
-	if ((dataPts == nullptr) || (nLastInputPts < nInputPts)) {
-		dataPts = annAllocPts(nInputPts, dimension);
-		nLastInputPts = nInputPts;
-	}
+	dataPts = annAllocPts(nInputPts, dimension);
 
 	nQueryPts = qPointCount;
-	if ((queryPts == nullptr) || (nLastQueryPts < nQueryPts)) {
+	queryPts = annAllocPts(nQueryPts, dimension);
 
-		if (queryPts != nullptr) {
-			delete[] queryPts;
-			delete[] outputNNIndexes;
-			delete[] outputNNDists;
-		}
-		queryPts = annAllocPts(nQueryPts, dimension);
-		outputNNIndexes = new int[nQueryPts]; //array for storing NN outputs
-		outputNNDists = new float[nQueryPts]; //array for storing float dists 
+	nnIdx = new ANNidx[1];					
+	dists = new ANNdist[1];					
 
-		nLastQueryPts = nQueryPts;
-	}
-
-	nnIdx = new ANNidx[1];
-	dists = new ANNdist[1];
+	outputNNIndexes = new int[nQueryPts]; //array for storing NN outputs
+	outputNNDists = new float[nQueryPts]; //array for storing float dists 
 
 	//Assigning qPoints
 	for (int i = 0; i < nQueryPts; i++) {
@@ -103,10 +87,10 @@ extern "C" int* GetNN(float inputPoints[][2], int inputPointCount, float qPoints
 			queryPts[i][j] = qPoints[i][j];
 		}
 	}
-
+	   
 	//Assigning inputPoints
-	for (int i = 0; i < nInputPts; i++) {
-		for (int j = 0; j < dimension; j++)
+	for (int i = 0; i < nInputPts; i++){
+		for (int j = 0; j < dimension; j++)			
 		{
 			dataPts[i][j] = inputPoints[i][j];
 		}
@@ -130,14 +114,11 @@ extern "C" int* GetNN(float inputPoints[][2], int inputPointCount, float qPoints
 		outputNNIndexes[i] = nnIdx[0];
 		outputNNDists[i] = dists[0];
 	}
-
+	
 	annClose();									// done with ANN
 
-	delete[] nnIdx;
-	delete[] dists;
-	delete kdTree;
-
-	return outputNNIndexes;
+	
+	return outputNNIndexes; 
 }
 
 extern "C" float* GetDists() {
@@ -149,10 +130,7 @@ extern "C" int FreeMem(int* arrayPtr) {
 	return 0;
 }
 
-extern "C" int FreeMemFloat(float* arrayPtr) {
-	delete[] arrayPtr;
-	return 0;
-}
+
 
 //
 ////----------------------------------------------------------------------
