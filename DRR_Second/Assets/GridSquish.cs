@@ -30,11 +30,15 @@ public class GridSquish : MonoBehaviour
 	}
 
 	List<ScreenGridRow> screenGridRows = new List<ScreenGridRow>();
-	int numSlices = 10;
+	int numSlices = 20;
 
 	private void DefineScreenGrid() {
 
 		screenGridRows.Clear();
+
+		//Determine furthest point of mesh (from camera)
+		//divide that by the number of slices to determine cut offset
+		//handle out-of-frustrum issues
 
 		float x = tex.width;
 		float y = tex.height;
@@ -61,14 +65,6 @@ public class GridSquish : MonoBehaviour
 
 			}
 		}
-
-		//Debug - define grid planes
-		//for (int i = 0; i < 10; i++) {
-		//	Vector3 v = Camera.main.transform.position + new Vector3(0, 0, i + 1 * 10);
-		//	GameObject g = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		//	g.transform.position = v;
-		//	g.transform.eulerAngles = new Vector3(-90, 0, 0);
-		//}
 
 		TestScreenGridPoints();
 	}
@@ -165,18 +161,18 @@ public class GridSquish : MonoBehaviour
 		//need to cull irrelevant data - beyond a certain dist thresh.
 		//Why?
 		for (int q = 0; q < neighbors.Length; q++) {
-			//if (dists[q] < 10) {  //relevant data
+			if (dists[q] < 10) {  //relevant data
 
-			int _density = intDensities[neighbors[q]];
+				int _density = intDensities[neighbors[q]];
 			//Debug.Log(_density);
 
 			
 			pointGridLU[originalGridPoints[q]].val += _density*_density;
-			
-			
 
 
-			//}
+
+
+			}
 		}
 
 		//8000 appears to be max val

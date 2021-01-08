@@ -338,6 +338,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FemurGroup
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 11fca18fc080ad54f8f83f93bc5c4d9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3997433771889374732, guid: 11fca18fc080ad54f8f83f93bc5c4d9d, type: 3}
       propertyPath: m_IsActive
       value: 1

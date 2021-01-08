@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets\GridSquish.cs" />
     <Compile Include="Assets\NearestNeighborInterface.cs" />
+    <Compile Include="Assets\RayCasterGroup - Copy.cs" />
     <Compile Include="Assets\RayCasterGroup.cs" />
     <Compile Include="Assets\SquishImplement.cs" />
     <Reference Include="UnityEngine">
