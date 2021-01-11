@@ -57,10 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\NearestNeighborInterface.cs" />
+    <Compile Include="Assets\RenderBoundsZzz.cs" />
     <Compile Include="Assets\SquishImplement.cs" />
     <Compile Include="Assets\GridSquish.cs" />
     <Compile Include="Assets\RayCasterGroup.cs" />
-    <Compile Include="Assets\RenderBoundsZzz.cs" />
+    <Compile Include="Assets\GridRay.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\New Text Document.txt" />

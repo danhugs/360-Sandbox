@@ -213,16 +213,3 @@ public class GridSquish : MonoBehaviour
 
 }
 
-class ScreenGridRow {
-	public Vector3 MidPoint;
-	public Vector3[] Testpoints;
-	public Color outputColour;
-	public float val = 0f;
-	internal int pixelIndex;
-}
-
-class MeshPointArray {
-	public GameObject gameobj;
-	public Vector3[] Points;
-	public int Density;
-}
