@@ -16,7 +16,9 @@ public class GridRay : MonoBehaviour
 
 	void Start()
     {
-		tex = new Texture2D(320, 180);
+		tex = new Texture2D(320*3, 180*3);
+		//tex = new Texture2D(320*10, 180*10);
+
 		densityLU.Add(_0.gameObject, 0);
 		densityLU.Add(_250.gameObject, 250);
 		densityLU.Add(_500.gameObject, 500);
@@ -29,6 +31,14 @@ public class GridRay : MonoBehaviour
 		//Reset();
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			DefineScreenGrid();
+		}
+
+		if (Input.GetMouseButtonDown(1)) {
+			img.color = Color.clear;
+		}
+
+		if (Input.GetMouseButton(0)) {
+
 		}
 		
 	}
@@ -76,8 +86,11 @@ public class GridRay : MonoBehaviour
 
 		}
 
+		foreach (ScreenGridRow s in screenGridRows) {
+			s.outputColour = Color.Lerp(Color.black, Color.white, (s.val/3000));
+		}
 
-		//SetPixelsOfTex();
+		SetPixelsOfTex();
 	}
 
 	void CastGridRay(Vector3 startPoint, ScreenGridRow s) {
@@ -107,6 +120,7 @@ public class GridRay : MonoBehaviour
 		tex.Apply();
 
 		img.texture = tex;
+		img.color = Color.white;
 
 	}
 
