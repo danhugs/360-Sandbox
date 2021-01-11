@@ -30,7 +30,7 @@ public class GridSquish : MonoBehaviour
 	}
 
 	List<ScreenGridRow> screenGridRows = new List<ScreenGridRow>();
-	int numSlices = 20;
+	int numSlices = 10;
 
 	private void DefineScreenGrid() {
 
@@ -154,10 +154,6 @@ public class GridSquish : MonoBehaviour
 
 		GetNNAndDist(originalGridPoints, allMeshPoints);
 
-		//to get compared MeshPointArray.density, just need neighbor[q]
-		//To get the ScreenGridRow - use the Vector3 to lookup the object, increment the val
-
-
 		//need to cull irrelevant data - beyond a certain dist thresh.
 		//Why?
 		for (int q = 0; q < neighbors.Length; q++) {
@@ -168,9 +164,6 @@ public class GridSquish : MonoBehaviour
 
 			
 			pointGridLU[originalGridPoints[q]].val += _density*_density;
-
-
-
 
 			}
 		}
