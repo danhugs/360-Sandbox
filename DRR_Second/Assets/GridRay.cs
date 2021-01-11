@@ -11,12 +11,13 @@ public class GridRay : MonoBehaviour
 	public MeshFilter _0, _250, _500, _750, _1000, _1250;
 	Texture2D tex;
 	public RawImage img;
+	public Transform femurGroup;
 
 	Dictionary<GameObject, int> densityLU = new Dictionary<GameObject, int>();
 
 	void Start()
     {
-		tex = new Texture2D(320*3, 180*3);
+		tex = new Texture2D(320, 180);
 		//tex = new Texture2D(320*10, 180*10);
 
 		densityLU.Add(_0.gameObject, 0);
@@ -27,18 +28,29 @@ public class GridRay : MonoBehaviour
 		densityLU.Add(_1250.gameObject, 1250);
     }
 
+	Vector3 lastMousePos;
 	private void Update() {
 		//Reset();
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			DefineScreenGrid();
 		}
 
-		if (Input.GetMouseButtonDown(1)) {
+		if (Input.GetMouseButtonDown(0)) {
 			img.color = Color.clear;
+			lastMousePos = Input.mousePosition;
+		}
+
+		if (Input.GetMouseButtonUp(0)) {
+			DefineScreenGrid();
 		}
 
 		if (Input.GetMouseButton(0)) {
+			Vector3 moveDelta = lastMousePos - Input.mousePosition;
 
+			femurGroup.eulerAngles += new Vector3(-moveDelta.y/10, moveDelta.x/10);
+
+
+			lastMousePos = Input.mousePosition;
 		}
 		
 	}

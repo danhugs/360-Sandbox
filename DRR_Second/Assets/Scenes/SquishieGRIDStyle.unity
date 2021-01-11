@@ -782,6 +782,12 @@ MonoBehaviour:
   _1000: {fileID: 368912771}
   _1250: {fileID: 1612913002}
   img: {fileID: 379680254}
+  femurGroup: {fileID: 1418698744}
+--- !u!4 &1418698744 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 11fca18fc080ad54f8f83f93bc5c4d9d, type: 3}
+  m_PrefabInstance: {fileID: 455529052}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1612912998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5039152398463181590, guid: 11fca18fc080ad54f8f83f93bc5c4d9d, type: 3}
