@@ -48,8 +48,6 @@ public class GridRay : MonoBehaviour
 			Vector3 moveDelta = lastMousePos - Input.mousePosition;
 
 			femurGroup.eulerAngles += new Vector3(-moveDelta.y/10, moveDelta.x/10);
-
-
 			lastMousePos = Input.mousePosition;
 		}
 		
@@ -79,6 +77,7 @@ public class GridRay : MonoBehaviour
 					ScreenGridRow s = new ScreenGridRow();
 					s.MidPoint = midPoint;
 					s.pixelIndex = ConvertCoordsToIndex(i, j);
+					s.rayNum = 0;
 					screenGridRows.Add(s);
 				}
 
@@ -99,20 +98,35 @@ public class GridRay : MonoBehaviour
 		}
 
 		foreach (ScreenGridRow s in screenGridRows) {
-			s.outputColour = Color.Lerp(Color.black, Color.white, (s.val/3000));
+			if(s.val == 0f) {
+				s.outputColour = Color.green;
+			} else {
+				s.outputColour = Color.Lerp(Color.black, Color.white, (s.val / 1000));
+			}
+			
 		}
 
 		SetPixelsOfTex();
 	}
 
+	//each screenGridrow tracks whcih ray it is 
 	void CastGridRay(Vector3 startPoint, ScreenGridRow s) {
 		RaycastHit hit;
 		if(Physics.Raycast(startPoint, transform.forward, out hit)){
-			s.val += densityLU[hit.collider.gameObject];
+			s.rayNum++;
+
+
+			if (s.rayNum%2 == 0) {
+
+				s.val += densityLU[hit.collider.gameObject] * hit.distance;
+			}
+
+			if (s.val == 0) {
+				Debug.Log("what " + hit.collider.gameObject.name);
+			}
+
+
 			CastGridRay(hit.point+transform.forward, s);
-			//GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			//g.transform.position = hit.point;
-			//g.transform.localScale = Vector3.one * 0.2f;
 		}
 	}
 
@@ -120,7 +134,7 @@ public class GridRay : MonoBehaviour
 	void SetPixelsOfTex() {
 		Color[] cols = tex.GetPixels();
 		for (int i = 0; i < cols.Length; i++) {
-			cols[i] = Color.black;
+			cols[i] = Color.red;
 		}
 	
 
@@ -143,31 +157,32 @@ public class GridRay : MonoBehaviour
 
 
 
-	int[] neighbors;
-	float[] dists;
-	public void GetNNAndDist(Vector3[] originalPoints, Vector3[] comparedPoints) {
-		NearestNeighborInterface.GetNNsandDist(comparedPoints, originalPoints, out neighbors, out dists);
-	}
+	//int[] neighbors;
+	//float[] dists;
+	//public void GetNNAndDist(Vector3[] originalPoints, Vector3[] comparedPoints) {
+	//	NearestNeighborInterface.GetNNsandDist(comparedPoints, originalPoints, out neighbors, out dists);
+	//}
 
 
 
 }
 
-struct RaycastHitObjectThing {
-	public Vector3 gridPoint;
+//struct RaycastHitObjectThing {
+//	public Vector3 gridPoint;
 	
-}
+//}
 
 class ScreenGridRow {
 	public Vector3 MidPoint;
-	public Vector3[] Testpoints;
+	//public Vector3[] Testpoints;
 	public Color outputColour;
 	public float val = 0f;
 	internal int pixelIndex;
+	public int rayNum;
 }
 
-class MeshPointArray {
-	public GameObject gameobj;
-	public Vector3[] Points;
-	public int Density;
-}
+//class MeshPointArray {
+//	public GameObject gameobj;
+//	public Vector3[] Points;
+//	public int Density;
+//}

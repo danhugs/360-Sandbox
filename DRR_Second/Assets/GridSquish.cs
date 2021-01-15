@@ -53,12 +53,12 @@ public class GridSquish : MonoBehaviour
 
 					ScreenGridRow s = new ScreenGridRow();
 					s.MidPoint = midPoint;
-					s.Testpoints = new Vector3[numSlices];
+					//s.Testpoints = new Vector3[numSlices];
 					s.pixelIndex = ConvertCoordsToIndex(i, j);
 
 					//define test points?
 					for (int q = 0; q < numSlices; q++) {
-						s.Testpoints[q] = midPoint + new Vector3(0, 0, q + 1 * (10*(10/numSlices)));
+						//s.Testpoints[q] = midPoint + new Vector3(0, 0, q + 1 * (10*(10/numSlices)));
 					}
 					screenGridRows.Add(s);
 				}
@@ -76,10 +76,10 @@ public class GridSquish : MonoBehaviour
 		List<Vector3> gridPointList = new List<Vector3>();
 		
 		foreach(ScreenGridRow s in screenGridRows) {
-			foreach(Vector3 v in s.Testpoints) {
-				pointGridLU.Add(v, s);
-				gridPointList.Add(v);
-			}
+			//foreach(Vector3 v in s.Testpoints) {
+				//pointGridLU.Add(v, s);
+				//gridPointList.Add(v);
+			//}
 		}
 		Vector3[] originalGridPoints = gridPointList.ToArray();
 
@@ -213,3 +213,14 @@ public class GridSquish : MonoBehaviour
 
 }
 
+struct RaycastHitObjectThing {
+	public Vector3 gridPoint;
+
+}
+
+
+class MeshPointArray {
+	public GameObject gameobj;
+	public Vector3[] Points;
+	public int Density;
+}
