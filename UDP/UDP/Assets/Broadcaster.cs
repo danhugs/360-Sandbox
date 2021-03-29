@@ -21,7 +21,7 @@ public class Broadcaster : MonoBehaviour {
 
 	// Update is called once per frame
 	private void Update() {
-		byte[] sendbuf = Encoding.ASCII.GetBytes("sending a message via udb babeyyy");
+		byte[] sendbuf = Encoding.ASCII.GetBytes("sending a message via udp babeyyy");
 
 		s.SendTo(sendbuf, ep);
 
