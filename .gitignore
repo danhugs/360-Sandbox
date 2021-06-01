@@ -16,3 +16,14 @@
 /BrettViewer.GameDriverTests/obj
 /BrettViewer.GameDriverTests/packages
 /BrettViewer.GameDriverTests/GDIOResults
+
+/UDP/UDP/packages
+/UDP/UDP/KICOCADWebAPIService/bin
+/UDP/UDP/KICOCADWebAPIService/obj
+/UDP/UDP/KICUtils/obj
+/UDP/UDP/KICUtils/bin
+/UDP/UDP/Library
+/UDP/UDP/Logs
+/UDP/UDP/Temp
+/UDP/UDP/obj
+/UDP/UDP/TestResults
