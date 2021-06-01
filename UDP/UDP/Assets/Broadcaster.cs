@@ -14,7 +14,7 @@ public class Broadcaster : MonoBehaviour {
 	private void Start() {
 		s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-		broadcast = IPAddress.Parse("192.168.1.175");
+		broadcast = IPAddress.Parse("193.168.1.175");
 
 		ep = new IPEndPoint(broadcast, 11001);
 	}
